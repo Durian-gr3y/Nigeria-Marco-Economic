@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "lastUpdated": "2025-06-01",
+    "nextUpdate": "2025-06-15",
+    "updateFrequency": "bi-weekly",
+    "timezone": "UTC"
+  },
+  "indicators": {
+    "inflation": {
+      "label": "Headline Inflation",
+      "current": null,
+      "previous": null,
+      "unit": "%",
+      "period": null,
+      "source": "NBS",
+      "sourceUrl": "https://nigerianstat.gov.ng",
+      "trend": "neutral",
+      "note": "manual_update",
+      "stale": true,
+      "history": []
+    },
+    "inflationTrend": {
+      "label": "Inflation Trend (Annual CPI %)",
+      "current": null,
+      "previous": null,
+      "unit": "%",
+      "period": null,
+      "source": "World Bank",
+      "sourceUrl": "https://data.worldbank.org",
+      "trend": "neutral",
+      "stale": true,
+      "history": []
+    },
+    "mpr": {
+      "label": "Monetary Policy Rate",
+      "current": null,
+      "previous": null,
+      "unit": "%",
+      "period": null,
+      "source": "CBN",
+      "sourceUrl": "https://www.cbn.gov.ng",
+      "trend": "neutral",
+      "note": "manual_update",
+      "stale": true,
+      "history": []
+    },
+    "exchangeRate": {
+      "label": "USD/NGN Exchange Rate",
+      "current": null,
+      "previous": null,
+      "unit": "NGN/USD",
+      "period": null,
+      "source": "Alpha Vantage",
+      "sourceUrl": "https://www.alphavantage.co",
+      "trend": "neutral",
+      "stale": true,
+      "history": []
+    },
+    "externalReserves": {
+      "label": "External Reserves",
+      "current": null,
+      "previous": null,
+      "unit": "USD Bn",
+      "period": null,
+      "source": "World Bank",
+      "sourceUrl": "https://data.worldbank.org",
+      "trend": "neutral",
+      "stale": true,
+      "history": []
+    },
+    "publicDebt": {
+      "label": "Public Debt (% of GDP)",
+      "current": null,
+      "previous": null,
+      "unit": "% of GDP",
+      "period": null,
+      "source": "World Bank / DMO",
+      "sourceUrl": "https://www.dmo.gov.ng",
+      "trend": "neutral",
+      "stale": true,
+      "history": []
+    },
+    "oilPrice": {
+      "label": "Brent Crude Price",
+      "current": null,
+      "previous": null,
+      "unit": "USD/bbl",
+      "period": null,
+      "source": "EIA",
+      "sourceUrl": "https://www.eia.gov",
+      "trend": "neutral",
+      "stale": true,
+      "history": []
+    },
+    "oilProduction": {
+      "label": "Nigeria Oil Production",
+      "current": null,
+      "previous": null,
+      "unit": "mbpd",
+      "period": null,
+      "source": "EIA",
+      "sourceUrl": "https://www.eia.gov",
+      "trend": "neutral",
+      "stale": true,
+      "history": []
+    }
+  }
+}
