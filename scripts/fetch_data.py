@@ -143,12 +143,16 @@ def fetch_world_bank_indicator(indicator_name: str, code: str) -> list[dict[str,
     except requests.RequestException as exc:
         raise SourceFailure(f"{indicator_name} request failed: {exc}") from exc
     payload = response_json(response, indicator_name)
-    if not isinstance(payload, list) or len(payload) < 2 or not isinstance(payload[1], list):
+    if not isinstance(payload, list) or len(payload) < 2:
         raise SourceFailure(f"{indicator_name} unexpected World Bank response")
+
+    data_array = payload[1]
+    if not isinstance(data_array, list):
+        data_array = []
 
     rows = [
         {"period": str(row["date"]), "value": row["value"]}
-        for row in payload[1]
+        for row in data_array
         if row.get("value") is not None and row.get("date") is not None
     ]
     if not rows:
@@ -157,56 +161,74 @@ def fetch_world_bank_indicator(indicator_name: str, code: str) -> list[dict[str,
 
 
 def fetch_world_bank(data: dict[str, Any]) -> None:
-    external = fetch_world_bank_indicator("externalReserves", "FI.RES.TOTL.CD")
-    external_history = [
-        {"period": row["period"], "value": round(float(row["value"]) / 1_000_000_000, 2)}
-        for row in reversed(external)
-    ]
-    external_latest = external_history[-1]
-    external_previous = external_history[-2] if len(external_history) > 1 else None
-    update_indicator(
-        data,
-        "externalReserves",
-        current=external_latest["value"],
-        previous=external_previous["value"] if external_previous else None,
-        period=external_latest["period"],
-        history=external_history,
-    )
-    logger.info("externalReserves fetched successfully from World Bank HTTP 200")
+    try:
+        external = fetch_world_bank_indicator("externalReserves", "FI.RES.TOTL.CD")
+        external_history = [
+            {"period": row["period"], "value": round(float(row["value"]) / 1_000_000_000, 2)}
+            for row in reversed(external)
+        ]
+        external_latest = external_history[-1]
+        external_previous = external_history[-2] if len(external_history) > 1 else None
+        update_indicator(
+            data,
+            "externalReserves",
+            current=external_latest["value"],
+            previous=external_previous["value"] if external_previous else None,
+            period=external_latest["period"],
+            history=external_history,
+        )
+        logger.info("externalReserves fetched successfully from World Bank HTTP 200")
+    except Exception as exc:
+        logger.warning("externalReserves failed: %s", exc)
+        mark_stale(data, "externalReserves")
 
-    debt = fetch_world_bank_indicator("publicDebt", "GC.DOD.TOTL.GD.ZS")
-    debt_history = [
-        {"period": row["period"], "value": round(float(row["value"]), 1)}
-        for row in reversed(debt)
-    ]
-    debt_latest = debt_history[-1]
-    debt_previous = debt_history[-2] if len(debt_history) > 1 else None
-    update_indicator(
-        data,
-        "publicDebt",
-        current=debt_latest["value"],
-        previous=debt_previous["value"] if debt_previous else None,
-        period=debt_latest["period"],
-        history=debt_history,
-    )
-    logger.info("publicDebt fetched successfully from World Bank HTTP 200")
+    try:
+        debt = fetch_world_bank_indicator("publicDebt", "GC.DOD.TOTL.GD.ZS")
+        debt_history = [
+            {"period": row["period"], "value": round(float(row["value"]), 1)}
+            for row in reversed(debt)
+        ]
+        debt_latest = debt_history[-1]
+        debt_previous = debt_history[-2] if len(debt_history) > 1 else None
+        update_indicator(
+            data,
+            "publicDebt",
+            current=debt_latest["value"],
+            previous=debt_previous["value"] if debt_previous else None,
+            period=debt_latest["period"],
+            history=debt_history,
+        )
+        logger.info("publicDebt fetched successfully from World Bank HTTP 200")
+    except Exception as exc:
+        logger.warning("publicDebt failed: %s", exc)
+        mark_stale(data, "publicDebt")
 
-    inflation = fetch_world_bank_indicator("inflationTrend", "FP.CPI.TOTL.ZG")
-    inflation_history = [
-        {"period": row["period"], "value": round(float(row["value"]), 1)}
-        for row in reversed(inflation)
-    ]
-    inflation_latest = inflation_history[-1]
-    inflation_previous = inflation_history[-2] if len(inflation_history) > 1 else None
-    update_indicator(
-        data,
-        "inflationTrend",
-        current=inflation_latest["value"],
-        previous=inflation_previous["value"] if inflation_previous else None,
-        period=inflation_latest["period"],
-        history=inflation_history,
-    )
-    logger.info("inflationTrend fetched successfully from World Bank HTTP 200")
+    try:
+        inflation = fetch_world_bank_indicator("inflationTrend", "FP.CPI.TOTL.ZG")
+        inflation_history = [
+            {"period": row["period"], "value": round(float(row["value"]), 1)}
+            for row in reversed(inflation)
+        ]
+        inflation_latest = inflation_history[-1]
+        inflation_previous = inflation_history[-2] if len(inflation_history) > 1 else None
+        update_indicator(
+            data,
+            "inflationTrend",
+            current=inflation_latest["value"],
+            previous=inflation_previous["value"] if inflation_previous else None,
+            period=inflation_latest["period"],
+            history=inflation_history,
+        )
+        logger.info("inflationTrend fetched successfully from World Bank HTTP 200")
+    except Exception as exc:
+        logger.warning("inflationTrend failed: %s", exc)
+        mark_stale(data, "inflationTrend")
+
+    # If all three failed, we raise SourceFailure to trigger the run_source failure behavior
+    if data["indicators"]["externalReserves"].get("stale", True) and \
+       data["indicators"]["publicDebt"].get("stale", True) and \
+       data["indicators"]["inflationTrend"].get("stale", True):
+        raise SourceFailure("All World Bank indicators failed")
 
 
 def parse_eia_rows(payload: dict[str, Any], indicator_name: str) -> list[dict[str, Any]]:

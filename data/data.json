@@ -1,7 +1,7 @@
 {
   "meta": {
-    "lastUpdated": "2025-06-01",
-    "nextUpdate": "2025-06-15",
+    "lastUpdated": "2026-06-17",
+    "nextUpdate": "2026-07-01",
     "updateFrequency": "bi-weekly",
     "timezone": "UTC"
   },
@@ -21,15 +21,56 @@
     },
     "inflationTrend": {
       "label": "Inflation Trend (Annual CPI %)",
-      "current": null,
-      "previous": null,
+      "current": 33.2,
+      "previous": 24.7,
       "unit": "%",
-      "period": null,
+      "period": "2024",
       "source": "World Bank",
       "sourceUrl": "https://data.worldbank.org",
-      "trend": "neutral",
-      "stale": true,
-      "history": []
+      "trend": "up",
+      "stale": false,
+      "history": [
+        {
+          "period": "2015",
+          "value": 9.0
+        },
+        {
+          "period": "2016",
+          "value": 15.7
+        },
+        {
+          "period": "2017",
+          "value": 16.5
+        },
+        {
+          "period": "2018",
+          "value": 12.1
+        },
+        {
+          "period": "2019",
+          "value": 11.4
+        },
+        {
+          "period": "2020",
+          "value": 13.2
+        },
+        {
+          "period": "2021",
+          "value": 17.0
+        },
+        {
+          "period": "2022",
+          "value": 18.8
+        },
+        {
+          "period": "2023",
+          "value": 24.7
+        },
+        {
+          "period": "2024",
+          "value": 33.2
+        }
+      ]
     },
     "mpr": {
       "label": "Monetary Policy Rate",
@@ -58,15 +99,56 @@
     },
     "externalReserves": {
       "label": "External Reserves",
-      "current": null,
-      "previous": null,
+      "current": 40.41,
+      "previous": 33.45,
       "unit": "USD Bn",
-      "period": null,
+      "period": "2024",
       "source": "World Bank",
       "sourceUrl": "https://data.worldbank.org",
-      "trend": "neutral",
-      "stale": true,
-      "history": []
+      "trend": "up",
+      "stale": false,
+      "history": [
+        {
+          "period": "2015",
+          "value": 29.01
+        },
+        {
+          "period": "2016",
+          "value": 28.02
+        },
+        {
+          "period": "2017",
+          "value": 40.5
+        },
+        {
+          "period": "2018",
+          "value": 42.84
+        },
+        {
+          "period": "2019",
+          "value": 39.38
+        },
+        {
+          "period": "2020",
+          "value": 38.03
+        },
+        {
+          "period": "2021",
+          "value": 41.73
+        },
+        {
+          "period": "2022",
+          "value": 36.81
+        },
+        {
+          "period": "2023",
+          "value": 33.45
+        },
+        {
+          "period": "2024",
+          "value": 40.41
+        }
+      ]
     },
     "publicDebt": {
       "label": "Public Debt (% of GDP)",
