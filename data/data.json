@@ -1,7 +1,7 @@
 {
   "meta": {
-    "lastUpdated": "2026-06-17",
-    "nextUpdate": "2026-07-01",
+    "lastUpdated": "2026-07-01",
+    "nextUpdate": "2026-07-15",
     "updateFrequency": "bi-weekly",
     "timezone": "UTC"
   },
@@ -21,19 +21,15 @@
     },
     "inflationTrend": {
       "label": "Inflation Trend (Annual CPI %)",
-      "current": 33.2,
-      "previous": 24.7,
+      "current": 23.0,
+      "previous": 33.2,
       "unit": "%",
-      "period": "2024",
+      "period": "2025",
       "source": "World Bank",
       "sourceUrl": "https://data.worldbank.org",
-      "trend": "up",
+      "trend": "down",
       "stale": false,
       "history": [
-        {
-          "period": "2015",
-          "value": 9.0
-        },
         {
           "period": "2016",
           "value": 15.7
@@ -69,6 +65,10 @@
         {
           "period": "2024",
           "value": 33.2
+        },
+        {
+          "period": "2025",
+          "value": 23.0
         }
       ]
     },
@@ -99,19 +99,15 @@
     },
     "externalReserves": {
       "label": "External Reserves",
-      "current": 40.41,
-      "previous": 33.45,
+      "current": 46.02,
+      "previous": 40.41,
       "unit": "USD Bn",
-      "period": "2024",
+      "period": "2025",
       "source": "World Bank",
       "sourceUrl": "https://data.worldbank.org",
       "trend": "up",
       "stale": false,
       "history": [
-        {
-          "period": "2015",
-          "value": 29.01
-        },
         {
           "period": "2016",
           "value": 28.02
@@ -122,7 +118,7 @@
         },
         {
           "period": "2018",
-          "value": 42.84
+          "value": 43.72
         },
         {
           "period": "2019",
@@ -147,6 +143,10 @@
         {
           "period": "2024",
           "value": 40.41
+        },
+        {
+          "period": "2025",
+          "value": 46.02
         }
       ]
     },
